@@ -1,0 +1,50 @@
+<div layout="column" id="upload-pan">
+	<h1>Select Pan</h1>
+
+	<div layout="row" layout-align="start center">
+		<md-button class="md-primary md-raised" ngf-select="pan.selectImage(pan.uploadedImage)" ng-model="pan.uploadedImage" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">Upload Image</md-button>
+		{{pan.imageObj.name}}
+	</div>
+
+	<div layout="row" layout-margin ng-if="pan.uploadedImage">
+		<div class="cropArea">
+			<ui-cropper 
+				image="pan.selectedImage" 
+				result-image="pan.myCroppedImage" 
+				result-image-size="'selection'"
+				area-type="rectangle">
+					
+				</ui-cropper>
+		</div>
+		<div flex>
+			Cropped Image :
+			<div>
+				<img ng-src="{{pan.myCroppedImage}}" />
+			</div>
+		</div>
+	</div>
+
+	<div layout="column" layout-margin layout-wrap ng-if="pan.pancardImageSaved">
+		<span>
+			Name : <strong>{{pan.pancardDetails.name}}</strong>
+		</span>
+		<span>
+			Reference Name : <strong>{{pan.pancardDetails.refName}}</strong>
+		</span>
+		<span>
+			DoB : <strong>{{pan.pancardDetails.dateOfBirth}}</strong>
+		</span>
+	</div>
+
+	<div layout="row" layout-align="center center" ng-if="pan.uploadedImage">
+		<md-button class="md-raised md-primary" ng-click="pan.uploadImage(pan.myCroppedImage)" ng-disabled="pan.uploadingImage" ng-if="!pan.pancardImageSaved">
+			Upload Pan
+		</md-button>
+		<md-button class="md-raised md-primary" ui-sref="app.upload.upload-aadhar" ng-if="pan.pancardImageSaved">Continue</md-button>
+
+		<md-progress-circular md-diameter="40" class="md-accent" ng-style="{'visibility': pan.uploadingImage ? 'visible' : 'hidden'}" >
+		<!-- ng-show="pan.uploadingImage" -->
+		</md-progress-circular>
+	</div>
+		
+</div>

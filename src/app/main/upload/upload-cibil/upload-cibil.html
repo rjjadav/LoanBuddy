@@ -1,0 +1,136 @@
+<h1>Cibil Report</h1>
+
+<div layout="row">
+	<md-button class="md-primary md-raised" ngf-select="cibil.uploadCibilReport(cibil.cibilReport)" ng-model="cibil.cibilReport" gf-pattern="'application/pdf'" ngf-accept="'application/pdf'">Upload Cibil Report</md-button>
+	{{cibil.cibilReport.name}}
+	<md-progress-circular md-diameter="40" class="md-accent" ng-style="{'visibility': cibil.fetchingCibilDetails ? 'visible' : 'hidden'}"> 
+	<!-- ng-show="aadhar.uploadingImage -->
+	</md-progress-circular>
+</div>
+
+<div layout="column" ng-if="cibil.cibilProfile">
+	<div layout="row" flex>
+		<div flex="20">
+			Name : 
+		</div>
+		<div flex="50">
+			<strong>
+				{{cibil.cibilProfile.nameSegmentResponse.nameField1}} {{cibil.cibilProfile.nameSegmentResponse.nameField2}} {{cibil.cibilProfile.nameSegmentResponse.nameField3}}
+			</strong>
+		</div>
+	</div>
+	<div layout="row" flex>
+		<div flex="20">
+			Gender : 
+		</div>
+		<div flex="50">
+			<strong>
+				{{cibil.cibilProfile.nameSegmentResponse.gender}}
+			</strong>
+		</div>
+	</div>
+	<div layout="row" flex>
+		<div flex="20">
+			Date Of Birth : 
+		</div>
+		<div flex="50">
+			<strong>
+				{{cibil.cibilProfile.nameSegmentResponse.dateOfBirth | date : 'dd-MM-yyyy'}}
+			</strong>
+		</div>
+	</div>
+
+
+	<div layout="column">
+		<h3>Telephones</h3>
+		<div layout="row" flex>
+			<div flex="20">
+				<label>Type</label>
+			</div>
+			<div flex="30">
+				<label>
+					Telephone No
+				</label>
+			</div>
+		</div>
+		<div layout="row" flex ng-repeat="telephone in cibil.cibilProfile.telphones">
+			<div flex="20">
+				{{telephone.telephoneType}}
+			</div>
+			<div flex="30">
+				{{telephone.telephoneNo}}
+			</div>
+		</div>
+	</div>
+
+	<div layout="column" layout-margin>
+		<h3>Addresses</h3>
+		<div layout="row" flex layout-wrap ng-repeat="address in cibil.cibilProfile.addresses" >
+			<span ng-if="address.addressLine1">{{address.addressLine1}},</span> 
+			<span ng-if="address.addressLine2">{{address.addressLine2}},</span> 
+			<span ng-if="address.addressLine3">{{address.addressLine3}},</span> 
+			<span ng-if="address.addressLine4">{{address.addressLine4}},</span> 
+			<span ng-if="address.addressLine5">{{address.addressLine5}},</span> 
+			<span ng-if="address.stateCode">{{address.stateCode}},</span> 
+			<span ng-if="address.pinCode">{{address.pinCodene1}}</span> 
+			<div flex="100"> Date Reported : <strong>{{address.dateReported | date : 'dd-MM-yyyy'}}</strong></div>
+		</div>
+	</div>
+
+	<div layout="column">
+		<h3>CIBIL TRANSUNION SCORE(S): </h3>
+		<div layout="row">
+				<span>
+				 CIBIL SCORE :
+				</span>
+				<span><h2>{{cibil.cibilProfile.score.score}}</h2></span>
+		</div>
+	</div>
+
+	<div layout="column">
+		<h3>Accounts</h3>
+		<div layout="column" ng-repeat="account in cibil.cibilProfile.accounts">
+			<div layout="row" flex>
+				<div layout="column" flex="25">
+					<h4>ACCOUNT</h4>
+					<span>Member Name:<strong>{{account.reportingMemberShortName}}</strong></span>
+					<span>Account Number:<strong>{{account.accountNo}}</strong></span>
+					<span>Type:<strong>{{account.accountType}}</strong></span>
+					<span>Ownership:<strong>{{account.ownershipIndicator}}</strong></span>
+				</div>
+
+				<div layout="column" flex="25">
+					<h4>DATES</h4>
+					<span>Opened:<strong>{{account.opened_disbursed | date : 'dd-MM-yyyy'}}</strong></span>
+					<span>Last Payment:<strong>{{account.lastPaymentDate | date : 'dd-MM-yyyy'}}</strong></span>
+					<span>Closed:<strong>{{account.dateClosed | date : 'dd-MM-yyyy'}}</strong></span>
+					<span>Reported & Certified Date:<strong>{{account.reportedAndCertifiedDate | date : 'dd-MM-yyyy'}}</strong></span>
+					<span>PMT History Start:<strong>{{account.paymentHistoryStartDate | date : 'dd-MM-yyyy'}}</strong></span>
+					<span>PMT History End:<strong>{{account.paymentHistoryEndDate | date : 'dd-MM-yyyy'}}</strong></span>
+				</div>
+
+				<div layout="column" flex="25">
+					<h4>AMOUNTS</h4>
+					<span>Sanctioned:<strong>{{account.highCredit_SanctionedAmount}}</strong></span>
+					<span>Current Balance:<strong>{{account.currentBalance}}</strong></span>
+				</div>
+
+				<div layout="column" flex="25">
+					<h4>STATUS</h4>
+				</div>
+			</div>
+
+			<div layout="row" flex layout-wrap layout-margin>
+				<div flex="5" layout="column" ng-repeat="paymentDate in account.paymentDates">
+					<span>{{account.paymentHistoryInDPD[$index]}}</span>
+					<span>{{paymentDate}}</span>
+				</div>
+			</div>
+			<md-divider></md-divider>
+		</div>
+	</div>
+
+	<div layout="row" layout-align="center center">
+		<md-button class="md-raised md-primary" ui-sref="app.upload.upload-bank-statement">Continue</md-button>
+	</div>
+</div>

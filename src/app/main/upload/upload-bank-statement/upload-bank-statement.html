@@ -1,0 +1,132 @@
+<div layout="column" id="upload-bank-statement">
+	<h1>Bank Statement</h1>
+	<div layout="row" flex>
+		<md-input-container flex="30">
+          <label>Select Bank</label>
+          <md-select ng-model="bankStatement.selectedBank">
+            <!-- <md-option><em>None</em></md-option> -->
+            <md-option value="HDFC">HDFC</md-option>
+            <md-option value="ICICI">ICICI</md-option>
+            <md-option value="KOTAK MAHINDRA">KOTAK MAHINDRA</md-option>
+          </md-select>
+        </md-input-container>
+	</div>
+	<div layout="row" flex>
+		<md-button class="md-primary md-raised" ngf-select="bankStatement.uploadBankStatement(bankStatement.uploadedBankStatement,bankStatement.selectedBank)" ng-model="bankStatement.uploadedBankStatement" gf-pattern="'application/pdf'" ngf-accept="'application/pdf'">Upload Bank Statement</md-button>
+		{{bankStatement.uploadedBankStatement.name}}
+		<md-progress-circular md-diameter="40" class="md-accent" ng-style="{'visibility': bankStatement.bankStatementLoading ? 'visible' : 'hidden'}"> 
+	</div>
+
+	<!-- <md-list ng-if="bankStatement.uploadedBankStatement.length > 0">
+		<md-list-item ng-repeat="statement in bankStatement.uploadedBankStatement" layout-margin >
+			<span><strong>{{$index + 1}}</strong></span>
+			<p>{{statement.name}}</p>
+			<md-button ng-click="bankStatement.removeFromList(bankStatement.uploadedBankStatement, $index)" class="md-raised md-warn md-hue-3">Remove</md-button>
+		</md-list-item>
+	</md-list> -->
+
+	<md-tabs ng-if="bankStatement.bsData">
+	<md-tab ng-repeat="(key,value) in bankStatement.bsData" label="{{key}}" md-on-select="bankStatement.clearFilteredData()">
+		<div layout="column">
+
+		<nvd3 options="bankStatement.options" data="value"></nvd3>
+			<!-- ng-repeat="obj in value" -->
+			<div layout="column" >
+				<h2>{{bankStatement.filteredData.componentName}}</h2>
+				<md-list>
+					<md-list-item ng-if="bankStatement.filteredData.candidateNarrations">
+						<div layout="row" layout-align="start center" flex>
+							<span flex="10">
+								<strong>Date</strong>
+							</span>
+							<span flex="50">
+								<strong>Narration</strong>
+							</span>
+							<span flex="20">
+								<strong>Chq No</strong>
+							</span>
+							<span flex="10">
+								<strong>Amount</strong>
+							</span>
+							<span flex="10">
+								<strong>Balance</strong>
+							</span>
+						</div>
+					</md-list-item>
+					<md-divider></md-divider>
+					<ng-repeat  ng-repeat="(key,value) in bankStatement.filteredData.candidateNarrations">
+					<md-list-item ng-repeat="transaction in value">
+					<div layout="row" layout-align="start center" flex>
+						<span flex="10">
+							{{transaction.date}}
+						</span>
+						<span flex="50">
+							{{transaction.narrationDescription}}
+						</span>
+						<span flex="20">
+							{{transaction.chequeNumber}}
+						</span>
+						<span flex="10">
+							{{transaction.amount}}
+						</span>
+						<span flex="10">
+							{{transaction.balanceAfterTransaction}}
+						</span>
+					</div>
+					<md-divider></md-divider>
+					</md-list-item>
+					</ng-repeat>
+					<div layout="column" layout-margin ng-repeat="subComp in bankStatement.filteredData.subComponent">
+						<h3>{{subComp.value}}</h3>
+						<md-list>
+							<md-list-item ng-if="bankStatement.filteredData.candidateNarrations">
+								<div layout="row" layout-align="start center" flex>
+									<span flex="10">
+										<strong>Date</strong>
+									</span>
+									<span flex="50">
+										<strong>Narration</strong>
+									</span>
+									<span flex="20">
+										<strong>Chq No</strong>
+									</span>
+									<span flex="10">
+										<strong>Amount</strong>
+									</span>
+									<span flex="10">
+										<strong>Balance</strong>
+									</span>
+								</div>
+							</md-list-item>
+							<md-divider></md-divider>
+							<ng-repeat ng-repeat="(key, value) in subComp.narrationsByMonth">
+								<md-list-item ng-repeat="transaction in value">
+									<div layout="row" layout-align="start center" flex>
+										<span flex="10">
+											{{transaction.date}}
+										</span>
+										<span flex="50">
+											{{transaction.narrationDescription}}
+										</span>
+										<span flex="20">
+											{{transaction.chequeNumber}}
+										</span>
+										<span flex="10">
+											{{transaction.amount}}
+										</span>
+										<span flex="10">
+											{{transaction.balanceAfterTransaction}}
+										</span>
+									</div>
+									<md-divider></md-divider>
+								</md-list-item>
+							</ng-repeat>
+						</md-list>
+					</div>
+				</md-list>
+			</div>
+		</div>
+	</md-tab>
+	</md-tabs>
+	
+</div>

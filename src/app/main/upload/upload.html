@@ -1,0 +1,29 @@
+<md-content>
+
+	<md-tabs md-dynamic-height md-border-bottom>
+		<md-tab label="Upload PAN" ui-sref="app.upload.upload-pan" md-active="$state.includes('app.upload.upload-pan')" ng-disabled="upload.maxTab < 1">
+			<md-content class="md-padding" ui-view="uploadContent">
+			</md-content>
+		</md-tab>
+		<md-tab label="Upload Aadhar" ui-sref="app.upload.upload-aadhar" md-active="$state.includes('app.upload.upload-aadhar')" ng-disabled="upload.maxTab < 2">
+			<md-content class="md-padding" ui-view="uploadContent">
+			</md-content>
+		</md-tab>
+		<md-tab label="Upload CIBIL Report" ui-sref="app.upload.upload-cibil" md-active="$state.includes('app.upload.upload-cibil')" ng-disabled="upload.maxTab < 3">
+			<md-content class="md-padding" ui-view="uploadContent">
+			</md-content>
+		</md-tab>
+		<md-tab label="Upload Bank Statement" ui-sref="app.upload.upload-bank-statement" md-active="$state.includes('app.upload.upload-bank-statement')" ng-disabled="upload.maxTab < 4">
+			<md-content class="md-padding" ui-view="uploadContent">
+			</md-content>
+		</md-tab>
+		<md-tab label="Connect Social" ui-sref="app.upload.upload-social" md-active="$state.includes('app.upload.upload-social')" ng-disabled="upload.maxTab < 5">
+			<md-content class="md-padding" ui-view="uploadContent">
+			</md-content>
+		</md-tab>
+		<md-tab label="Eligibility" ui-sref="app.upload.eligibility" md-active="$state.includes('app.upload.eligibility')" ng-disabled="upload.maxTab < 6">
+			<md-content class="md-padding" ui-view="uploadContent">
+			</md-content>
+		</md-tab>
+	</md-tabs>
+</md-content>

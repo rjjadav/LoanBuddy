@@ -1,0 +1,29 @@
+<!-- <acme-navbar creation-date="toolbar.creationDate"></acme-navbar> -->
+
+<div layout="row" layout-align="start center">
+
+	<div layout="row" layout-align="start center" flex>
+
+		<div class="logo" layout="row" layout-align="start center">
+			<!-- <img src="assets/images/logo.jpg"> -->
+			<h2>Banking Demo</h2>
+		</div>
+
+		<div class="toolbar-separator"></div>
+		<!-- <md-button id="navigation-toggle" class="md-icon-button" ng-click="vm.lockLeft = !vm.lockLeft"
+				   aria-label="Toggle navigation" translate
+				   translate-attr-aria-label="TOOLBAR.TOGGLE_NAVIGATION">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+		</md-button> -->
+
+	</div>
+
+	<div layout="row" layout-align="start center">
+		<div class="toolbar-separator"></div>
+
+		<md-button id="quick-panel-toggle" class="md-icon-button" ng-click="toolbar.toggleSidenav('quick-panel')"
+				   aria-label="Toggle quick panel" translate translate-attr-aria-label="TOOLBAR.TOGGLE_QUICK_PANEL">
+			<i class="fa fa-list-ul" aria-hidden="true"></i>
+		</md-button>
+	</div>
+</div>

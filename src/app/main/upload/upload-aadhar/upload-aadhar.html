@@ -1,0 +1,46 @@
+<div layout="column" id="upload-aadhar">
+	<h1>Upload Aadhar</h1>
+
+	<div layout="row" layout-align="start center">
+		<md-button class="md-primary md-raised" ngf-select="aadhar.selectImage(aadhar.uploadedImage)" ng-model="aadhar.uploadedImage" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">Upload Image</md-button>
+		{{aadhar.imageObj.name}}
+	</div>
+
+	<div layout="row" layout-margin ng-if="aadhar.uploadedImage">
+		<div class="cropArea">
+			<ui-cropper 
+			image="aadhar.selectedImage" 
+			result-image="aadhar.myCroppedImage" 
+			area-type="rectangle"
+			result-image-size="'selection'"></ui-cropper>
+		</div>
+		<div flex>
+			Cropped Image :
+			<div><img ng-src="{{aadhar.myCroppedImage}}" />
+			</div>
+		</div>
+	</div>
+	
+	<div layout="column" layout-margin layout-wrap ng-if="aadhar.aadharimageSaved">
+		<span>
+			Aadhaar Number : <strong>{{aadhar.aadharDetails.aadharNo}}</strong>
+		</span>
+		<span>
+			Gender : <strong>{{aadhar.aadharDetails.gender}}</strong>
+		</span>
+		<span>
+			DoB : <strong>{{aadhar.aadharDetails.dateOfBirth}}</strong>
+		</span>
+	</div>
+
+	<div layout="row" layout-align="center center" ng-if="aadhar.uploadedImage">
+		<md-button class="md-raised md-primary" ng-click="aadhar.uploadImage(aadhar.myCroppedImage)" ng-disabled="aadhar.uploadingImage" ng-if="!aadhar.aadharimageSaved">
+			Upload Aadhar
+		</md-button>
+		<md-button class="md-raised md-primary" ui-sref="app.upload.upload-cibil" ng-if="aadhar.aadharimageSaved">Continue</md-button>
+		<md-progress-circular md-diameter="40" class="md-accent" ng-style="{'visibility': aadhar.uploadingImage ? 'visible' : 'hidden'}"> 
+		<!-- ng-show="aadhar.uploadingImage -->
+		</md-progress-circular>
+	</div>
+		
+</div>

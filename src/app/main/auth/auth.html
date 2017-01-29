@@ -1,0 +1,70 @@
+<div layout="column" id="auth">
+	<h1>Login</h1>
+	<div layout="row" flex>
+		<div flex="50" flex-sm flex-xs layout="row">
+			<md-input-container class="md-block" flex="70">
+				<label>Mobile Number</label>
+				<input type="text" name="mobile" ng-model="auth.login.mobile" />
+			</md-input-container>
+			<div layout="column" flex="30">
+				<md-button class="md-raised md-accent" ng-click="auth.generateOtp(auth.login.mobile)" ng-disabled="auth.sendingOtp">
+					Create Account
+				</md-button>
+			</div>
+			<md-progress-circular md-diameter="40" class="md-accent" ng-style="{'visibility': auth.sendingOtp ? 'visible' : 'hidden'}">
+			</md-progress-circular>
+			
+		</div>
+
+	</div>	
+
+	<div layout="column" flex ng-if="auth.showOtp">
+		<div layout="row">
+			<div flex="50" flex-sm flex-xs layout="row">
+				<md-input-container class="md-block" flex="70">
+					<label>otp</label>
+					<input type="text" name="otp" ng-model="auth.login.otp" />
+				</md-input-container>
+			</div>
+		</div>
+
+		<div layout="row" layout-align="start start" layout-margin ng-if="auth.showOtp">
+			<ng-webcam
+				config="auth.config"
+				on-error="auth.onError(err)"
+				on-load="auth.onLoad()"
+				on-live="auth.onLive()"
+				on-capture-progress="auth.onCaptureProgress(src, progress)"
+				on-capture-complete="auth.onCaptureComplete(src)">
+			</ng-webcam>
+		
+			<div layout="column" layout-align="start start">
+				<div layout="row" layout-align="start start" layout-margin>
+					<md-button class="md-raised md-accent" ng-click="auth.capture()" ng-disabled="auth.capturingImage">
+						Take a Picture
+					</md-button>
+					<md-progress-circular md-diameter="40" class="md-accent" ng-style="{'visibility': auth.capturingImage ? 'visible' : 'hidden'}">
+					</md-progress-circular>
+				</div>
+				<label>Preview</label>
+				<img ng-src="{{auth.capturedImage}}" style="height: 150px; width: 200px;" />
+			</div>	
+		</div>
+		
+		<div layout="row">
+			<div flex="50" flex-sm flex-xs layout="row">
+				<md-button class="md-raised md-primary" ng-click="auth.verifyOtp(auth.login)" ng-disabled="auth.verifyingOtp">
+					Continue
+				</md-button>
+				<md-progress-circular md-diameter="40" class="md-accent" ng-style="{'visibility': auth.verifyingOtp ? 'visible' : 'hidden'}">
+				</md-progress-circular>
+			</div>
+		</div>
+		
+	</div>
+
+	
+	
+	
+	
+</div>
